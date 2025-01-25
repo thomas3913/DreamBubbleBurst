@@ -11,6 +11,7 @@ public class MiniGame2 : MonoBehaviour
     public int height = 0;
 
     private Fish draggingFish = null;
+    private Fish lastHoveredFish = null;
     private Vector3 mouseStartPosition = new Vector3(0,0,0);
     private Vector3 fishStartPosition = new Vector3(0,0,0);
 
@@ -19,7 +20,6 @@ public class MiniGame2 : MonoBehaviour
 
     System.Random random = new System.Random();
 
-    Vector3 spawn = new Vector3(-5.0F, 0, 0.0F);
 
     Fish[] allFish = null;
 
@@ -51,8 +51,10 @@ public class MiniGame2 : MonoBehaviour
         SpriteRenderer spriteRenderer = fish.GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.gameObject.transform.localScale = new Vector3(0, 0, 0);
 
-        for (int i = 0; i < random.Next(4); i++) {
-            fish.rotate();
+        if (fish.width > 1 || fish.height > 1) {
+            for (int i = 0; i < random.Next(4); i++) {
+                fish.rotate();
+            }
         }
         fish.gameObject.SetActive(true);
     }
@@ -63,23 +65,33 @@ public class MiniGame2 : MonoBehaviour
 
         Mouse mouse = Mouse.current;
 
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
+        Fish hoveredFish = null;
+        if(hit.collider != null) {
+            hoveredFish = hit.collider.gameObject.GetComponentInParent<Fish>();
+        }
         if (mouse.leftButton.isPressed && draggingFish == null) {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
-                
-            if(hit.collider != null) { //  && hit.collider.transform == thisTransform
+            // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
+            if(hoveredFish != null) { //  && hit.collider.transform == thisTransform
+
+                if (lastHoveredFish != null) {
+                    lastHoveredFish.isHovered = false;
+                    lastHoveredFish = null;
+                }
+
                 // raycast hit this gameobject
                 // hit.collider.gameObject.pare
-                Fish fish = hit.collider.gameObject.GetComponentInParent<Fish>();
-                if (fish != null && !fish.isSnapping()) {
-                    fish.minigame = this;
+                if (!hoveredFish.isSnapping()) {
+                    hoveredFish.minigame = this;
                     mouseStartPosition = getWorldMousePosition();
                     
-                    OrderFish(fish);
+                    OrderFish(hoveredFish);
                     
-                    fishStartPosition = fish.transform.position;
+                    fishStartPosition = hoveredFish.transform.position;
                     // fishStartPosition = new Vector3(fish.transform.position.x, fish.transform.position.y, -0.5F);
-                    draggingFish = fish;
+                    draggingFish = hoveredFish;
                     draggingFish.StartDrag(fishStartPosition);
                                         
                     // Debug.Log("hit fish");
@@ -97,6 +109,16 @@ public class MiniGame2 : MonoBehaviour
             }
 
             draggingFish = null;
+        } else if (draggingFish == null && lastHoveredFish == null) {
+            if (hoveredFish != null) {
+                lastHoveredFish = hoveredFish;
+                hoveredFish.Hover();
+            }
+        } else {
+            if (hoveredFish == null && lastHoveredFish != null) {
+                lastHoveredFish.isHovered = false;
+                lastHoveredFish = null;
+            }
         }
 
         if (draggingFish != null) {
@@ -154,7 +176,6 @@ public class MiniGame2 : MonoBehaviour
         Vector3 targetPosition = new Vector3(modified_x, modified_y, fishPosition.z);
 
         if (isOutside(draggingFish, targetPosition)) {
-            Debug.Log("OUTSIDE!");
             draggingFish.Snap(getOutsidePosition(draggingFish, targetPosition), 10.0F);
             draggingFish.isOutside = true;
             // draggingFish.Snap(fishStartPosition, 5.0F);
