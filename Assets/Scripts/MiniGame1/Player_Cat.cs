@@ -5,6 +5,9 @@ using TMPro;
 
 public class Player_Cat : MonoBehaviour
 {
+    public SceneManager sceneManager;
+
+
     public float speed = 0.1f;
 
     private Collider2D playerCollider;
@@ -93,19 +96,26 @@ public class Player_Cat : MonoBehaviour
                 }
             }
             else if(this.currentDirection == "horizontal" & this.directionChanged == false){
-                if(this.horizontalDirection == "left"){
-                    if(transform.position.x <= colliderCenter){
-                        this.currentDirection = "vertical";
-                        this.directionChanged = true;
+                if(this.possibleDirections.Count == 2){
+                    
+                }
+                else{
+                    if(this.horizontalDirection == "left"){
+                        if(transform.position.x <= colliderCenter){
+                            this.currentDirection = "vertical";
+                            this.directionChanged = true;
+                        }
+                    }
+
+                    else if(this.horizontalDirection == "right"){
+                        if(transform.position.x >= colliderCenter){
+                            this.currentDirection = "vertical";
+                            this.directionChanged = true;
+                        }
                     }
                 }
 
-                else if(this.horizontalDirection == "right"){
-                    if(transform.position.x >= colliderCenter){
-                        this.currentDirection = "vertical";
-                        this.directionChanged = true;
-                    }
-                }
+
                 
                 
             }
@@ -140,7 +150,7 @@ public class Player_Cat : MonoBehaviour
     }
 
     public void deathAreaEntered(){
-        Debug.Log("DEATH!");
+        sceneManager.reloadCurrentScene();
     }
 
     
