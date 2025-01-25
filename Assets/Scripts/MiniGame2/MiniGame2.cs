@@ -61,6 +61,11 @@ public class MiniGame2 : MonoBehaviour
 
         if (draggingFish != null) {
 
+            if (Input.GetKeyDown("r"))
+            {
+                // Debug.Log("rotate!");
+                draggingFish.rotate();
+            }
             // Vector3 p = Input.mousePosition;
             // p.z = 0;
             // Vector3 pos = Camera.main.ScreenToWorldPoint(p);
@@ -98,8 +103,13 @@ public class MiniGame2 : MonoBehaviour
             else modified_y -= gridSize * 0.5F;
         }
 
-        // draggingFish.transform.position = new Vector3(modified_x, modified_y, 0);
-        draggingFish.Snap(new Vector3(modified_x, modified_y, 0));
+        Vector3 targetPosition = new Vector3(modified_x, modified_y, 0);
+
+        if (isOutside(draggingFish, targetPosition)) {
+            draggingFish.Snap(fishStartPosition);
+        } else {
+            draggingFish.Snap(targetPosition);
+        }
 
         return true;
     }
@@ -109,5 +119,29 @@ public class MiniGame2 : MonoBehaviour
         p.z = 0;
         Vector3 pos = Camera.main.ScreenToWorldPoint(p);
         return pos;
+    }
+
+    bool isOutside(Fish fish, Vector3 position) {
+        int left = (int)(position.x - fish.width * 0.5F);
+        int right = (int)(position.x + fish.width * 0.5F);
+        int top = (int)(position.y + fish.height * 0.5F);
+        int bottom = (int)(position.y - fish.height * 0.5F);
+        if (left < -width / 2) {
+            Debug.Log("collision left");
+            return true; 
+        }
+        if (right > width / 2) {
+            Debug.Log("collision right");
+            return true; 
+        }
+        if (top > height / 2) {
+            Debug.Log("collision top");
+            return true; 
+        }
+        if (bottom < -height / 2) {
+            Debug.Log("collision bottom");
+            return true; 
+        }
+        return false;
     }
 }

@@ -38,9 +38,14 @@ public class Fish : MonoBehaviour
         targetPosition = position;
         snapping = true;
         snapProgress = 0;
-
     }
     public bool isSnapping() {
         return snapping;
+    }
+    public void rotate() {
+        transform.Rotate(0, 0, -90, Space.Self);
+        int saveWidth = width;
+        width = height;
+        height = saveWidth;
     }
 }
