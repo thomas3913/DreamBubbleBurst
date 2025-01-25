@@ -5,7 +5,7 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
 
-    public int value;
+    public string type;
 
     public bool finish;
 
@@ -29,9 +29,10 @@ public class Collectable : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.name == "Player"){
-            other.gameObject.GetComponent<Player_Cat>().collectableEntered(value);
+            other.gameObject.GetComponent<Player_Cat>().collectableEntered(type);
 
             if(finish){
+
                 SceneManager.Instance.loadScene(nextScene);
             }
             else{
