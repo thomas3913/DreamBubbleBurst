@@ -6,6 +6,10 @@ public class Collectable : MonoBehaviour
 {
 
     public int value;
+
+    public bool finish;
+
+    public string nextScene;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,7 +30,14 @@ public class Collectable : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.name == "Player"){
             other.gameObject.GetComponent<Player_Cat>().collectableEntered(value);
-            Destroy(gameObject,0.1f);
+
+            if(finish){
+                SceneManager.Instance.loadScene(nextScene);
+            }
+            else{
+                Destroy(gameObject,0.1f);
+            }
+            
 
         }
     }

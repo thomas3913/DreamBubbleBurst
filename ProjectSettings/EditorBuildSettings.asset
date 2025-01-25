@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/Minigame_1a.unity
+    path: Assets/Scenes/Minigame_1b.unity
     guid: fe92a26080f0eae4090e3899c009c4c5
   - enabled: 1
     path: Assets/Scenes/Minigame_2a.unity
     guid: 537122d5bae08403983d78744d5fcc30
+  - enabled: 1
+    path: Assets/Scenes/Minigame_1a.unity
+    guid: c12f6f64a614da746919239786b6c597
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

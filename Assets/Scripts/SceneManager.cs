@@ -3,16 +3,30 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static SceneManager Instance;
+
+    
+
+    private void Awake()
     {
-        
+        Instance = this;
+
+
+    
+        DontDestroyOnLoad(gameObject); 
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Escape) & this.getCurrentScene() != "MainScene"){
+            this.loadScene("MainScene");
+        }
+    }
+
+    public string getCurrentScene(){
+        return UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
     }
 
     public void loadScene(string sceneName){
@@ -20,6 +34,8 @@ public class SceneManager : MonoBehaviour
     }
 
     public void reloadCurrentScene(){
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        this.loadScene(this.getCurrentScene());
+
+        
     }
 }

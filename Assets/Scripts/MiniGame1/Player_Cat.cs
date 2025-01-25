@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+
 
 public class Player_Cat : MonoBehaviour
 {
-    public SceneManager sceneManager;
-
+    public ScoreCount scoreCount;
 
     public float speed = 0.1f;
 
@@ -26,15 +25,13 @@ public class Player_Cat : MonoBehaviour
 
     public float colliderCenter;
 
-    private int score;
-
-    public TMP_Text scoreText;
-
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+
         playerCollider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -48,7 +45,7 @@ public class Player_Cat : MonoBehaviour
 
         colliderCenter = 0.0f;
 
-        score = 0;
+    
 
         
         
@@ -143,14 +140,13 @@ public class Player_Cat : MonoBehaviour
 
     public void collectableEntered(int value){
 
-        this.score += value;
-
-        scoreText.text = "Score: " + this.score;
+        scoreCount.updateScore(value);   
 
     }
 
     public void deathAreaEntered(){
-        sceneManager.reloadCurrentScene();
+        SceneManager.Instance.reloadCurrentScene();
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     
