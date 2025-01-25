@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
 public class MiniGame2 : MonoBehaviour
@@ -12,12 +14,36 @@ public class MiniGame2 : MonoBehaviour
     private Vector3 mouseStartPosition = new Vector3(0,0,0);
     private Vector3 fishStartPosition = new Vector3(0,0,0);
 
+    private List<Fish> inactiveFishes = new List<Fish>();
+    private List<Fish> activeFishes = new List<Fish>();
+
+    System.Random random = new System.Random();
+
+    Vector3 spawn = new Vector3(-5.0F, 0, 0.0F);
+
     Fish[] allFish = null;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         allFish = gameObject.GetComponentsInChildren<Fish>();
+        StartGame();
+    }
+
+    void StartGame() {
+        foreach (Fish fish in allFish) {
+            inactiveFishes.Add(fish);
+            fish.gameObject.SetActive(false);
+        }             
+        ServeFish();
+    }
+
+    void ServeFish() {
+        Fish fish = inactiveFishes[random.Next(inactiveFishes.Count)];
+        inactiveFishes.Remove(fish);
+        activeFishes.Add(fish);
+        fish.transform.position = spawn;
+        fish.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -81,7 +107,7 @@ public class MiniGame2 : MonoBehaviour
 
         Debug.Log("order fish");
 
-        foreach (Fish fish in allFish) {                        
+        foreach (Fish fish in activeFishes) {                        
             // Vector3 fishPosition = fish.transform.position;
             // fishPosition.z = 0.5F;
             // gameObject.sortingOrder = -1;
@@ -180,13 +206,18 @@ public class MiniGame2 : MonoBehaviour
     }
 
     public bool checkComplete() {
-        foreach (Fish fish in allFish) {
+        bool aFishIsOutside = false;
+        foreach (Fish fish in activeFishes) {
             if (fish.isOutside) {
-                return false;
+                aFishIsOutside = true;
             }
         }
-        Debug.Log("Complete!");
-        return true;
+        if (inactiveFishes.Count > 0 && !aFishIsOutside) {
+            ServeFish();
+            return false;
+        }
+
+        return !aFishIsOutside;
     }
 
 }

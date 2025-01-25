@@ -16,6 +16,8 @@ public class Fish : MonoBehaviour
     public MiniGame2 minigame = null;
     public LayerMask CollideLayer;
 
+    // private bool active = false;
+
     public bool isOutside = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,9 +26,16 @@ public class Fish : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
     }
 
+    // void setActive(bool active) {
+    //     this->active = active;
+    // }
+
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        // if (!active) return;
+
         if (snapping) {
             if (snapProgress < 1.0F) {
                 snapProgress += Time.deltaTime * speed;
