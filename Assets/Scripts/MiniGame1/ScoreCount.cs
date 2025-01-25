@@ -13,6 +13,11 @@ public class ScoreCount : MonoBehaviour
 
     private int stars;
 
+    public GameObject endScreen;
+
+    public GameObject[] inactiveStars;
+    public GameObject[] activeStars;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,6 +34,8 @@ public class ScoreCount : MonoBehaviour
     public void updateScore(string type){
         if(type == "endItem"){
             this.stars += 1;
+
+            this.levelFinished("win");
         }
         else if(type == "fish"){
             this.collectedFish += 1;
@@ -47,5 +54,38 @@ public class ScoreCount : MonoBehaviour
 
     public int getStars(){
         return this.stars;
+    }
+
+    public void levelFinished(string mode){
+
+        endScreen.SetActive(true);
+
+        int starCount = Mathf.Clamp(this.getStars(), 0, inactiveStars.Length);
+
+        for (int i = 0; i < inactiveStars.Length; i++)
+        {
+            if (i < starCount)
+            {
+                // Activate stars up to starCount
+                activeStars[i].SetActive(true);
+                inactiveStars[i].SetActive(false);
+            }
+            else
+            {
+                // Deactivate remaining stars
+                activeStars[i].SetActive(false);
+                inactiveStars[i].SetActive(true);
+            }
+        }
+
+        
+
+
+
+
+    }
+
+    public void loadScene(string scene){
+        SceneManager.Instance.loadScene(scene);
     }
 }

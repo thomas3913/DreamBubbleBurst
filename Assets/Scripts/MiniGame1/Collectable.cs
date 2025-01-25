@@ -8,8 +8,6 @@ public class Collectable : MonoBehaviour
     public string type;
 
     public bool finish;
-
-    public string nextScene;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,8 +30,8 @@ public class Collectable : MonoBehaviour
             other.gameObject.GetComponent<Player_Cat>().collectableEntered(type);
 
             if(finish){
-
-                SceneManager.Instance.loadScene(nextScene);
+                
+                
             }
             else{
                 Destroy(gameObject,0.1f);

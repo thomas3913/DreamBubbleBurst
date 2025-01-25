@@ -32,6 +32,8 @@ public class Player_Cat : MonoBehaviour
     {
 
 
+
+
         playerCollider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -140,12 +142,14 @@ public class Player_Cat : MonoBehaviour
 
     public void collectableEntered(string type){
 
-        scoreCount.updateScore(type);   
+        scoreCount.updateScore(type);
 
     }
 
     public void deathAreaEntered(){
-        SceneManager.Instance.reloadCurrentScene();
+
+        scoreCount.levelFinished("death");
+
         //UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
