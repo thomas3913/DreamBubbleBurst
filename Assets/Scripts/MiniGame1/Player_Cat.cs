@@ -138,9 +138,9 @@ public class Player_Cat : MonoBehaviour
         }
     }
 
-    public void collectableEntered(int value){
+    public void collectableEntered(string type){
 
-        scoreCount.updateScore(value);   
+        scoreCount.updateScore(type);   
 
     }
 
