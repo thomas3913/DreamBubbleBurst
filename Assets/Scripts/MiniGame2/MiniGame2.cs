@@ -34,21 +34,21 @@ public class MiniGame2 : MonoBehaviour
                 
             if(hit.collider != null) { //  && hit.collider.transform == thisTransform
                 // raycast hit this gameobject
-                Debug.Log("hit");
                 // hit.collider.gameObject.pare
                 Fish fish = hit.collider.gameObject.GetComponentInParent<Fish>();
                 if (fish != null && !fish.isSnapping()) {
                     mouseStartPosition = getWorldMousePosition();
                     fishStartPosition = fish.transform.position;
                     draggingFish = fish;
+                    draggingFish.StartDrag();
                                         
-                    Debug.Log("hit fish");
-                    Debug.Log(getWorldMousePosition());
+                    // Debug.Log("hit fish");
+                    // Debug.Log(getWorldMousePosition());
                 }
             }
         } else if (!mouse.leftButton.isPressed && draggingFish) {
 
-            Debug.Log("release fish");
+            // Debug.Log("release fish");
 
             if (SnapToGrid(draggingFish)) {
                 // fitting
@@ -63,23 +63,13 @@ public class MiniGame2 : MonoBehaviour
 
             if (Input.GetKeyDown("r"))
             {
-                // Debug.Log("rotate!");
                 draggingFish.rotate();
             }
-            // Vector3 p = Input.mousePosition;
-            // p.z = 0;
-            // Vector3 pos = Camera.main.ScreenToWorldPoint(p);
-            // draggingFish.transform.position = pos;
 
             Vector3 offset = (mouseStartPosition - getWorldMousePosition());
             Vector3 offsetModified = new Vector3(offset.x, offset.y, 0);
-            // Vector3 offset3D = new Vector3(offset.x, offset.y, fishStartPosition.z);
-
-            // float mouseDeltaX = offset.x;
-            // float mouseDeltaY = offset.y;
-            // Vector3 fishPosition = draggingFish.transform.position;
-            draggingFish.transform.position = fishStartPosition - offsetModified;
-            // draggingFish.transform.position = new Vector3(fishPosition.x + mouseDeltaX, fishPosition.y + mouseDeltaY, fishPosition.z);
+            draggingFish.MoveFish(fishStartPosition - offsetModified);
+            // draggingFish.transform.position = fishStartPosition - offsetModified;
         }
         
     }
@@ -106,9 +96,11 @@ public class MiniGame2 : MonoBehaviour
         Vector3 targetPosition = new Vector3(modified_x, modified_y, 0);
 
         if (isOutside(draggingFish, targetPosition)) {
-            draggingFish.Snap(fishStartPosition);
+            draggingFish.Snap(fishStartPosition, 5.0F);
+            return false;
         } else {
-            draggingFish.Snap(targetPosition);
+            draggingFish.Snap(targetPosition, 10.0F);
+            return true;
         }
 
         return true;
@@ -127,21 +119,18 @@ public class MiniGame2 : MonoBehaviour
         int top = (int)(position.y + fish.height * 0.5F);
         int bottom = (int)(position.y - fish.height * 0.5F);
         if (left < -width / 2) {
-            Debug.Log("collision left");
             return true; 
         }
         if (right > width / 2) {
-            Debug.Log("collision right");
             return true; 
         }
         if (top > height / 2) {
-            Debug.Log("collision top");
             return true; 
         }
         if (bottom < -height / 2) {
-            Debug.Log("collision bottom");
             return true; 
         }
         return false;
     }
+
 }

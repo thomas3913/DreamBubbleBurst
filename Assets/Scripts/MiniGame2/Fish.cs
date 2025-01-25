@@ -9,32 +9,50 @@ public class Fish : MonoBehaviour
     private float speed = 10.0F;
     private bool snapping = false;
     private Vector3 targetPosition = new Vector3();
+    private Vector3 lastPosition = new Vector3();
     private Vector3 originalPosition = new Vector3();
     private float snapProgress = 0.0F;
+    private Rigidbody2D RB = null;
+    public LayerMask CollideLayer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        RB = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (snapping && snapProgress < 1.0F) {
-            snapProgress += Time.deltaTime * speed;
-            transform.position = Vector3.Lerp(originalPosition, targetPosition, snapProgress);
-            if (snapProgress >= 1.0F) {
-                transform.position = targetPosition;
+        if (snapping) {
+            if (snapProgress < 1.0F) {
+                snapProgress += Time.deltaTime * speed;
+                MoveFish(Vector3.Lerp(lastPosition, targetPosition, snapProgress));
+                if (snapProgress >= 1.0F) {
+                    MoveFish(targetPosition);                    
+                }
+            } else {
+
                 snapping = false;
+                if (isIlligal()) {
+                    Snap(originalPosition, 5.0F);
+                }
+                
             }
         }
     }
-
-    public void Snap(Vector3 position) {
-        if (snapping) return;
-
+    public void StartDrag() {
         originalPosition = transform.position;
+    }
+    public void MoveFish(Vector3 position) {
+        RB.MovePosition(position);
+    }
+    public void Snap(Vector3 position, float speed) {
+        if (snapping) return;
+        
+        this.speed = speed;
+
+        lastPosition = transform.position;
         targetPosition = position;
         snapping = true;
         snapProgress = 0;
@@ -47,5 +65,19 @@ public class Fish : MonoBehaviour
         int saveWidth = width;
         width = height;
         height = saveWidth;
+    }
+
+    private bool isIlligal() {
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            Debug.Log("check collider");
+            Debug.Log(CollideLayer);
+            if(collider.IsTouchingLayers()) {
+                Debug.Log("collide with fish");
+                return true;
+            }
+        }
+        return false;
     }
 }
