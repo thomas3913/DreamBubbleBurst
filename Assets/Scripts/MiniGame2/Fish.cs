@@ -13,6 +13,7 @@ public class Fish : MonoBehaviour
     private Vector3 originalPosition = new Vector3();
     private float snapProgress = 0.0F;
     private Rigidbody2D RB = null;
+    public MiniGame2 minigame = null;
     public LayerMask CollideLayer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,7 +36,7 @@ public class Fish : MonoBehaviour
 
                 snapping = false;
                 if (isIlligal()) {
-                    Snap(originalPosition, 5.0F);
+                    Snap(minigame.getOutsidePosition(this, targetPosition), 5.0F);
                 }
                 
             }

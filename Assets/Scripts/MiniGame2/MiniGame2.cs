@@ -37,6 +37,7 @@ public class MiniGame2 : MonoBehaviour
                 // hit.collider.gameObject.pare
                 Fish fish = hit.collider.gameObject.GetComponentInParent<Fish>();
                 if (fish != null && !fish.isSnapping()) {
+                    fish.minigame = this;
                     mouseStartPosition = getWorldMousePosition();
                     fishStartPosition = fish.transform.position;
                     draggingFish = fish;
@@ -96,7 +97,8 @@ public class MiniGame2 : MonoBehaviour
         Vector3 targetPosition = new Vector3(modified_x, modified_y, 0);
 
         if (isOutside(draggingFish, targetPosition)) {
-            draggingFish.Snap(fishStartPosition, 5.0F);
+            draggingFish.Snap(getOutsidePosition(draggingFish, targetPosition), 5.0F);
+            // draggingFish.Snap(fishStartPosition, 5.0F);
             return false;
         } else {
             draggingFish.Snap(targetPosition, 10.0F);
@@ -131,6 +133,26 @@ public class MiniGame2 : MonoBehaviour
             return true; 
         }
         return false;
+    }
+
+    public Vector3 getOutsidePosition(Fish fish, Vector3 position) {
+        int left = (int)(position.x - fish.width * 0.5F);
+        int right = (int)(position.x + fish.width * 0.5F);
+        int top = (int)(position.y + fish.height * 0.5F);
+        int bottom = (int)(position.y - fish.height * 0.5F);
+        if (position.x < 0) {
+            return new Vector3(-width / 2 - (fish.width * 0.5F + 2.0F), position.y, position.z); 
+        }
+        if (position.x >= 0) {
+            return new Vector3(width / 2 + (fish.width * 0.5F + 2.0F), position.y, position.z); 
+        }
+        if (top > height / 2) {
+            return new Vector3(right + (fish.width * 0.5F), position.y, position.z); 
+        }
+        if (bottom < -height / 2) {
+            return new Vector3(left - (fish.width * 0.5F), position.y, position.z); 
+        }
+        return position;
     }
 
 }
