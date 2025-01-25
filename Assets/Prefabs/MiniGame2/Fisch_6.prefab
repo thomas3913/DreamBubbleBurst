@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1373664059811011564}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 1, z: 0}
+  m_LocalPosition: {x: 1, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -50,9 +50,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 2
   height: 2
+  minigame: {fileID: 0}
   CollideLayer:
     serializedVersion: 2
     m_Bits: 256
+  isOutside: 0
 --- !u!50 &7349843236415715298
 Rigidbody2D:
   serializedVersion: 5
@@ -185,7 +187,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0.45, z: 0}
-  m_LocalScale: {x: 0.9, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3841780405093843652}

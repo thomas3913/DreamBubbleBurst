@@ -43,6 +43,10 @@ public class MiniGame2 : MonoBehaviour
         inactiveFishes.Remove(fish);
         activeFishes.Add(fish);
         fish.transform.position = spawn;
+        fish.isOutside = true;
+        for (int i = 0; i < random.Next(4); i++) {
+            fish.rotate();
+        }
         fish.gameObject.SetActive(true);
     }
 
@@ -105,8 +109,6 @@ public class MiniGame2 : MonoBehaviour
 
     void OrderFish(Fish activeFish) {
 
-        Debug.Log("order fish");
-
         foreach (Fish fish in activeFishes) {                        
             // Vector3 fishPosition = fish.transform.position;
             // fishPosition.z = 0.5F;
@@ -145,6 +147,7 @@ public class MiniGame2 : MonoBehaviour
         Vector3 targetPosition = new Vector3(modified_x, modified_y, fishPosition.z);
 
         if (isOutside(draggingFish, targetPosition)) {
+            Debug.Log("OUTSIDE!");
             draggingFish.Snap(getOutsidePosition(draggingFish, targetPosition), 10.0F);
             draggingFish.isOutside = true;
             // draggingFish.Snap(fishStartPosition, 5.0F);

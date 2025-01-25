@@ -62,7 +62,7 @@ public class Fish : MonoBehaviour
         originalPosition = startPosition;
     }
     public void MoveFish(Vector3 position) {
-        Debug.Log(position.z);
+        // Debug.Log(position.z);
         RB.MovePosition(position);
     }
     public void Snap(Vector3 position, float speed) {
