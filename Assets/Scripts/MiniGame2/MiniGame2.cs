@@ -5,6 +5,9 @@ public class MiniGame2 : MonoBehaviour
 {
     private int gridSize = 1;
 
+    public int width = 0;
+    public int height = 0;
+
     private Fish draggingFish = null;
     private Vector3 mouseStartPosition = new Vector3(0,0,0);
     private Vector3 fishStartPosition = new Vector3(0,0,0);
@@ -34,7 +37,7 @@ public class MiniGame2 : MonoBehaviour
                 Debug.Log("hit");
                 // hit.collider.gameObject.pare
                 Fish fish = hit.collider.gameObject.GetComponentInParent<Fish>();
-                if (fish != null) {
+                if (fish != null && !fish.isSnapping()) {
                     mouseStartPosition = getWorldMousePosition();
                     fishStartPosition = fish.transform.position;
                     draggingFish = fish;
@@ -95,7 +98,8 @@ public class MiniGame2 : MonoBehaviour
             else modified_y -= gridSize * 0.5F;
         }
 
-        draggingFish.transform.position = new Vector3(modified_x, modified_y, 0);
+        // draggingFish.transform.position = new Vector3(modified_x, modified_y, 0);
+        draggingFish.Snap(new Vector3(modified_x, modified_y, 0));
 
         return true;
     }
