@@ -22,6 +22,8 @@ public class MiniGame2 : MonoBehaviour
     Vector3 spawn = new Vector3(-5.0F, 0, 0.0F);
 
     Fish[] allFish = null;
+
+    public string nextScene;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,8 +44,13 @@ public class MiniGame2 : MonoBehaviour
         Fish fish = inactiveFishes[random.Next(inactiveFishes.Count)];
         inactiveFishes.Remove(fish);
         activeFishes.Add(fish);
-        fish.transform.position = spawn;
+        Vector3 spawnPosition = new Vector3(-width * 0.5F - (fish.width * 0.5F + 2), 0, 0);
+        fish.transform.position = spawnPosition;
         fish.isOutside = true;
+
+        SpriteRenderer spriteRenderer = fish.GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer.gameObject.transform.localScale = new Vector3(0, 0, 0);
+
         for (int i = 0; i < random.Next(4); i++) {
             fish.rotate();
         }
@@ -218,6 +225,10 @@ public class MiniGame2 : MonoBehaviour
         if (inactiveFishes.Count > 0 && !aFishIsOutside) {
             ServeFish();
             return false;
+        }
+
+        if (!aFishIsOutside) {
+            SceneManager.Instance.loadScene(nextScene);
         }
 
         return !aFishIsOutside;

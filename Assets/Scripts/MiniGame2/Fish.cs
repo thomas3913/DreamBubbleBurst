@@ -16,6 +16,12 @@ public class Fish : MonoBehaviour
     public MiniGame2 minigame = null;
     public LayerMask CollideLayer;
 
+    public float targetScale = 1.0F;
+    private float currentScale = 0.0F;
+    private float scaleSpeed = 2.5F;
+
+
+
     // private bool active = false;
 
     public bool isOutside = true;
@@ -33,6 +39,31 @@ public class Fish : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        float scaleDifference = Mathf.Abs(currentScale - targetScale);
+        if (scaleDifference > 0.01F) {
+            // Debug.Log(scaleDifference);
+            // Debug.Log("scale!");
+            float delta = Time.deltaTime * scaleSpeed;
+            // Debug.Log(delta);
+
+            if (Mathf.Abs(delta) > scaleDifference) {
+                delta = scaleDifference;
+            }
+            // Debug.Log(Mathf.Abs(delta));
+
+            if (currentScale > targetScale) {
+                currentScale -= delta;
+            } else {
+                currentScale += delta;
+            }
+
+            // Debug.Log(currentScale);
+
+            SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.gameObject.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+
+        }
 
         // if (!active) return;
 
@@ -88,11 +119,11 @@ public class Fish : MonoBehaviour
     public void Highlight(bool highlight) {
         SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (highlight) {
-            spriteRenderer.gameObject.transform.localScale = new Vector3(1.1F,1.1F,1.1F);
+            targetScale = 1.2F;
             spriteRenderer.sortingOrder = 1;
         }
         else {
-            spriteRenderer.gameObject.transform.localScale = new Vector3(1.0F,1.0F,1.0F);
+            targetScale = 1.0F;
             spriteRenderer.sortingOrder = 0;
         }
     }
