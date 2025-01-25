@@ -16,6 +16,8 @@ public class Fish : MonoBehaviour
     public MiniGame2 minigame = null;
     public LayerMask CollideLayer;
 
+    public bool isOutside = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,17 +37,23 @@ public class Fish : MonoBehaviour
             } else {
 
                 snapping = false;
-                if (isIlligal()) {
+                if (!isOutside && isIlligal()) {
+                // if (!minigame.isOutside(this, targetPosition) && isIlligal()) {
                     Snap(minigame.getOutsidePosition(this, targetPosition), 5.0F);
+                    isOutside = true;
+                } else {
+                    Highlight(false);
+                    minigame.checkComplete();
                 }
                 
             }
         }
     }
-    public void StartDrag() {
-        originalPosition = transform.position;
+    public void StartDrag(Vector3 startPosition) {
+        originalPosition = startPosition;
     }
     public void MoveFish(Vector3 position) {
+        Debug.Log(position.z);
         RB.MovePosition(position);
     }
     public void Snap(Vector3 position, float speed) {
@@ -68,12 +76,24 @@ public class Fish : MonoBehaviour
         height = saveWidth;
     }
 
+    public void Highlight(bool highlight) {
+        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (highlight) {
+            spriteRenderer.gameObject.transform.localScale = new Vector3(1.1F,1.1F,1.1F);
+            spriteRenderer.sortingOrder = 1;
+        }
+        else {
+            spriteRenderer.gameObject.transform.localScale = new Vector3(1.0F,1.0F,1.0F);
+            spriteRenderer.sortingOrder = 0;
+        }
+    }
+
     private bool isIlligal() {
         Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
         foreach (Collider2D collider in colliders)
         {
             Debug.Log("check collider");
-            Debug.Log(CollideLayer);
+            // Debug.Log(CollideLayer);
             if(collider.IsTouchingLayers()) {
                 Debug.Log("collide with fish");
                 return true;

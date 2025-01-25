@@ -11,15 +11,13 @@ public class MiniGame2 : MonoBehaviour
     private Fish draggingFish = null;
     private Vector3 mouseStartPosition = new Vector3(0,0,0);
     private Vector3 fishStartPosition = new Vector3(0,0,0);
+
+    Fish[] allFish = null;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-        // foreach(Collider  in gameObject.GetComponentsInChildren<>()) {
-            
-        // }
-        
+        allFish = gameObject.GetComponentsInChildren<Fish>();
     }
 
     // Update is called once per frame
@@ -39,9 +37,13 @@ public class MiniGame2 : MonoBehaviour
                 if (fish != null && !fish.isSnapping()) {
                     fish.minigame = this;
                     mouseStartPosition = getWorldMousePosition();
+                    
+                    OrderFish(fish);
+                    
                     fishStartPosition = fish.transform.position;
+                    // fishStartPosition = new Vector3(fish.transform.position.x, fish.transform.position.y, -0.5F);
                     draggingFish = fish;
-                    draggingFish.StartDrag();
+                    draggingFish.StartDrag(fishStartPosition);
                                         
                     // Debug.Log("hit fish");
                     // Debug.Log(getWorldMousePosition());
@@ -69,10 +71,30 @@ public class MiniGame2 : MonoBehaviour
 
             Vector3 offset = (mouseStartPosition - getWorldMousePosition());
             Vector3 offsetModified = new Vector3(offset.x, offset.y, 0);
-            draggingFish.MoveFish(fishStartPosition - offsetModified);
+            draggingFish.MoveFish((fishStartPosition - offsetModified));
             // draggingFish.transform.position = fishStartPosition - offsetModified;
         }
         
+    }
+
+    void OrderFish(Fish activeFish) {
+
+        Debug.Log("order fish");
+
+        foreach (Fish fish in allFish) {                        
+            // Vector3 fishPosition = fish.transform.position;
+            // fishPosition.z = 0.5F;
+            // gameObject.sortingOrder = -1;
+            // fish.MoveFish(fishPosition);
+            // fish.transform.localScale = new Vector3(1,1,1);
+            fish.Highlight(false);
+        }
+        
+        // Vector3 activeFishPosition = activeFish.transform.position;
+        // activeFish.transform.localScale = new Vector3(1.1F,1.1F,1.1F);
+        activeFish.Highlight(true);
+        // activeFishPosition.z = -0.5F;
+        // activeFish.MoveFish(activeFishPosition);
     }
 
     // snap an item to the grid, or return it if it doesn't fit
@@ -94,14 +116,16 @@ public class MiniGame2 : MonoBehaviour
             else modified_y -= gridSize * 0.5F;
         }
 
-        Vector3 targetPosition = new Vector3(modified_x, modified_y, 0);
+        Vector3 targetPosition = new Vector3(modified_x, modified_y, fishPosition.z);
 
         if (isOutside(draggingFish, targetPosition)) {
-            draggingFish.Snap(getOutsidePosition(draggingFish, targetPosition), 5.0F);
+            draggingFish.Snap(getOutsidePosition(draggingFish, targetPosition), 10.0F);
+            draggingFish.isOutside = true;
             // draggingFish.Snap(fishStartPosition, 5.0F);
             return false;
         } else {
             draggingFish.Snap(targetPosition, 10.0F);
+            draggingFish.isOutside = false;
             return true;
         }
 
@@ -115,7 +139,7 @@ public class MiniGame2 : MonoBehaviour
         return pos;
     }
 
-    bool isOutside(Fish fish, Vector3 position) {
+    public bool isOutside(Fish fish, Vector3 position) {
         int left = (int)(position.x - fish.width * 0.5F);
         int right = (int)(position.x + fish.width * 0.5F);
         int top = (int)(position.y + fish.height * 0.5F);
@@ -153,6 +177,16 @@ public class MiniGame2 : MonoBehaviour
             return new Vector3(left - (fish.width * 0.5F), position.y, position.z); 
         }
         return position;
+    }
+
+    public bool checkComplete() {
+        foreach (Fish fish in allFish) {
+            if (fish.isOutside) {
+                return false;
+            }
+        }
+        Debug.Log("Complete!");
+        return true;
     }
 
 }
