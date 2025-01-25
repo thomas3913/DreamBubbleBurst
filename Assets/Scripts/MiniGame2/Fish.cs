@@ -21,6 +21,14 @@ public class Fish : MonoBehaviour
     private float scaleSpeed = 2.5F;
 
 
+    private float hoverLength = 0.4F;
+    private float hoverTimer = 0.0F;
+    private bool hoverMode = true;
+
+    public bool isHovered = false;
+
+    SpriteRenderer spriteRenderer = null;
+
 
     // private bool active = false;
 
@@ -30,6 +38,7 @@ public class Fish : MonoBehaviour
     void Start()
     {
         RB = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     // void setActive(bool active) {
@@ -39,6 +48,28 @@ public class Fish : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        if (isHovered) {
+            hoverTimer += Time.deltaTime;
+            if (hoverTimer > hoverLength) {
+                Vector3 angles = spriteRenderer.gameObject.transform.localEulerAngles;
+                angles.z = 2.0F;
+                if (hoverMode) {
+                    angles.z *= -1;
+                }
+
+                spriteRenderer.gameObject.transform.localEulerAngles = angles;
+
+                hoverMode = !hoverMode;
+                hoverTimer = 0;
+            }
+        } else {
+            if (spriteRenderer.gameObject.transform.localEulerAngles.z != 0) {
+                Vector3 angles = spriteRenderer.gameObject.transform.localEulerAngles;
+                angles.z = 0;
+                spriteRenderer.gameObject.transform.localEulerAngles = angles;
+            }
+        }
 
         float scaleDifference = Mathf.Abs(currentScale - targetScale);
         if (scaleDifference > 0.01F) {
@@ -60,7 +91,6 @@ public class Fish : MonoBehaviour
 
             // Debug.Log(currentScale);
 
-            SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             spriteRenderer.gameObject.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
 
         }
@@ -89,6 +119,12 @@ public class Fish : MonoBehaviour
             }
         }
     }
+
+    public void Hover() {
+        hoverTimer = hoverLength;
+        isHovered = true;
+    }
+
     public void StartDrag(Vector3 startPosition) {
         originalPosition = startPosition;
     }
@@ -117,9 +153,8 @@ public class Fish : MonoBehaviour
     }
 
     public void Highlight(bool highlight) {
-        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (highlight) {
-            targetScale = 1.2F;
+            targetScale = 1.15F;
             spriteRenderer.sortingOrder = 1;
         }
         else {
