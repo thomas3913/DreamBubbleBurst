@@ -8,6 +8,7 @@ public class Crossing : MonoBehaviour
     public bool left;
     public bool right;
 
+
     private List<string> directionList;
     
 
@@ -36,6 +37,8 @@ public class Crossing : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.name == "Player"){
             other.gameObject.GetComponent<Player_Cat>().SetPossibleDirections(directionList);
+            other.gameObject.GetComponent<Player_Cat>().directionChanged = false;
+            other.gameObject.GetComponent<Player_Cat>().colliderCenter = transform.position.x;
         }
     }
 }

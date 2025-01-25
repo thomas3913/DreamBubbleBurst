@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player_Cat : MonoBehaviour
 {
@@ -12,6 +13,20 @@ public class Player_Cat : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private List<string> possibleDirections;
+
+    private string currentDirection;
+    private string verticalDirection;
+    private string horizontalDirection;
+
+    public bool directionChanged;
+
+    public float colliderCenter;
+
+    private int score;
+
+    public TMP_Text scoreText;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,6 +34,18 @@ public class Player_Cat : MonoBehaviour
     {
         playerCollider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
+
+        possibleDirections = new List<string>();
+
+        currentDirection = "vertical";
+        verticalDirection = "up";
+        horizontalDirection = "left";
+
+        directionChanged = false;
+
+        colliderCenter = 0.0f;
+
+        score = 0;
 
         
         
@@ -28,25 +55,92 @@ public class Player_Cat : MonoBehaviour
     void Update()
     {
         //transform.position += Vector3.up * speed * Time.deltaTime;
-        Vector2 newPosition = rb.position + Vector2.up * speed * Time.fixedDeltaTime;
-        rb.MovePosition(newPosition);
-
-        bool collidesWithTrigger = Physics2D.IsTouchingLayers(playerCollider, CrossingLayer);
-
-        if(collidesWithTrigger){
-            //Debug.Log("COLLIDE");
-
-            if(Input.GetKeyDown(KeyCode.Space)){
-                Debug.Log("SPACE");
+        if(this.currentDirection == "vertical"){
+            if(this.verticalDirection == "up"){
+                Vector2 newPosition = rb.position + Vector2.up * speed * Time.fixedDeltaTime;
+                rb.MovePosition(newPosition);
             }
-        }        
+            else if(this.verticalDirection == "down"){
+                Vector2 newPosition = rb.position + Vector2.down * speed * Time.fixedDeltaTime;
+                rb.MovePosition(newPosition);
+            }
+        }
+        else if(this.currentDirection == "horizontal"){
+            if(this.horizontalDirection == "left"){
+                Vector2 newPosition = rb.position + Vector2.left * speed * Time.fixedDeltaTime;
+                rb.MovePosition(newPosition);
+            }
+            else if(this.horizontalDirection == "right"){
+                Vector2 newPosition = rb.position + Vector2.right * speed * Time.fixedDeltaTime;
+                rb.MovePosition(newPosition);
+            }
+        }
+
+        bool collidesWithCrossing = Physics2D.IsTouchingLayers(playerCollider, CrossingLayer);
+
+        if(collidesWithCrossing){
+            if(this.currentDirection == "vertical"){
+                if(Input.GetKeyDown(KeyCode.LeftArrow) & possibleDirections.Contains("left") & this.directionChanged == false){
+                    this.currentDirection = "horizontal";
+                    this.horizontalDirection = "left";
+                    this.directionChanged = true;
+                }
+
+                if(Input.GetKeyDown(KeyCode.RightArrow) & possibleDirections.Contains("right") & this.directionChanged == false){
+                    this.currentDirection = "horizontal";
+                    this.horizontalDirection = "right";
+                    this.directionChanged = true;
+                }
+            }
+            else if(this.currentDirection == "horizontal" & this.directionChanged == false){
+                if(this.horizontalDirection == "left"){
+                    if(transform.position.x <= colliderCenter){
+                        this.currentDirection = "vertical";
+                        this.directionChanged = true;
+                    }
+                }
+
+                else if(this.horizontalDirection == "right"){
+                    if(transform.position.x >= colliderCenter){
+                        this.currentDirection = "vertical";
+                        this.directionChanged = true;
+                    }
+                }
+                
+                
+            }
+            
+        }
+   
     }
 
 
     
     public void SetPossibleDirections(List<string> directionList)
     {
-        Debug.Log(directionList.Count);
+        this.possibleDirections = directionList;
+    }
+
+    public void turnPointEntered(){
+        if(this.verticalDirection == "up"){
+            this.verticalDirection = "down";
+        }
+
+        else if(this.verticalDirection == "down" ){
+            this.verticalDirection = "up";
+        }
+    }
+
+    public void collectableEntered(int value){
+
+        this.score += value;
+
+        scoreText.text = "Score: " + this.score;
+
+    }
+
+    public void deathAreaEntered(){
+        Debug.Log("DEATH!");
     }
 
     
