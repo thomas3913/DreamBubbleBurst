@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3162947946983738944}
   - component: {fileID: 8944035835693696968}
-  - component: {fileID: 9216249462989886972}
   - component: {fileID: 2726605508659152805}
+  - component: {fileID: 2158603819069889730}
   m_Layer: 0
   m_Name: swooshing_paw
   m_TagString: Untagged
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6241890097542786434}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.9947833, w: 0.10201144}
-  m_LocalPosition: {x: -15.124361, y: 8.766981, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.22604254, w: -0.97411746}
+  m_LocalPosition: {x: -14.82542, y: -10.137723, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -168.29}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -386.128}
 --- !u!212 &8944035835693696968
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,24 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9216249462989886972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6241890097542786434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87e84e42614299248908cf739ff34666, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 5
-  height: 2
-  speed: 2
-  interval: 40
-  animationComponent: {fileID: 0}
-  soundClip: {fileID: 8300000, guid: 6daade37ab3e63e459643f666283fdad, type: 3}
 --- !u!82 &2726605508659152805
 AudioSource:
   m_ObjectHideFlags: 0
@@ -204,3 +186,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2158603819069889730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6241890097542786434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be8f602a285c3746a8000e585488dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 2
+  startDelay: 40
+  wiperSound: {fileID: 8300000, guid: 6daade37ab3e63e459643f666283fdad, type: 3}
