@@ -89,7 +89,7 @@ public class Player_Cat : MonoBehaviour
 
         if(collidesWithCrossing){
             if(this.currentDirection == "vertical"){
-                if(Input.GetKeyDown(KeyCode.LeftArrow) & possibleDirections.Contains("left") & this.directionChanged == false){
+                if( (Input.GetKeyDown(KeyCode.LeftArrow) | Input.GetKeyDown(KeyCode.A)) & possibleDirections.Contains("left") & this.directionChanged == false){
                     this.currentDirection = "horizontal";
                     this.horizontalDirection = "left";
                     transform.position = new Vector3(transform.position.x, colliderCenterY, transform.position.z);
@@ -97,7 +97,7 @@ public class Player_Cat : MonoBehaviour
                     this.directionChanged = true;
                 }
 
-                if(Input.GetKeyDown(KeyCode.RightArrow) & possibleDirections.Contains("right") & this.directionChanged == false){
+                if( (Input.GetKeyDown(KeyCode.RightArrow) | Input.GetKeyDown(KeyCode.D)) & possibleDirections.Contains("right") & this.directionChanged == false){
                     this.currentDirection = "horizontal";
                     this.horizontalDirection = "right";
                     transform.position = new Vector3(transform.position.x, colliderCenterY, transform.position.z);

@@ -10,8 +10,6 @@ public class ScoreCount : MonoBehaviour
 
     public int collectedFish;
 
-    public TMP_Text scoreText;
-
     private int stars;
 
     public GameObject endScreen;
@@ -52,9 +50,7 @@ public class ScoreCount : MonoBehaviour
             if(collectedFish == numberOfFish){
                 this.stars += 1;
             }
-        }
-
-        scoreText.text = "Stars: " + this.getStars();     
+        }    
         
     }
 
