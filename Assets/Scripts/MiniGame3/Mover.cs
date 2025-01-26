@@ -123,7 +123,7 @@ public class Mover : MonoBehaviour
 
         if (level == 3) 
         {
-            // End();
+            End();
             level = 0;
         }
     }

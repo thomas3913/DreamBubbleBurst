@@ -7,6 +7,8 @@ public class Player_Cat : MonoBehaviour
 {
     private Animator animator;
 
+    public AudioSource fishcrunch;
+
 
     public ScoreCount scoreCount;
 
@@ -155,6 +157,7 @@ public class Player_Cat : MonoBehaviour
             Destroy(gameObject,0.1f);
         }
         else if(type == "fish"){
+            fishcrunch.Play();
             animator.SetTrigger("Happy");
         }
 

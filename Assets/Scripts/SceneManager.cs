@@ -38,4 +38,8 @@ public class SceneManager : MonoBehaviour
 
         
     }
+
+    public void quitApplication(){
+        Application.Quit();
+    }
 }

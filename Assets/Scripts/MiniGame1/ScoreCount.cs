@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.UI;
 
 public class ScoreCount : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class ScoreCount : MonoBehaviour
 
     public GameObject[] inactiveStars;
     public GameObject[] activeStars;
+
+    public Button mainMenuButton;
+    public Button playAgainButton;
+    public Button nextLevelButton;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,6 +68,10 @@ public class ScoreCount : MonoBehaviour
 
         if(mode == "death"){
             this.stars = 0;
+            mainMenuButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -200);
+            playAgainButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(150, -200);
+            nextLevelButton.gameObject.SetActive(false);
+
         }
 
         endScreen.SetActive(true);

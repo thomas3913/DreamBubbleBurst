@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BildMovement : MonoBehaviour
 {
-    public Button playButton; // Der Play-Button, der die Bildbewegung auslöst
+    public Button playButton; // Der Play-Button, der die Bildbewegung auslï¿½st
     public RectTransform imageTransform; // Das RectTransform des Bildes
-    public float moveSpeed = 2f; // Geschwindigkeit, mit der das Bild bewegt wird
+    public float moveSpeed = 3.5f; // Geschwindigkeit, mit der das Bild bewegt wird
     private Vector3 targetPosition; // Zielposition, an die das Bild verschoben werden soll
 
     private bool clicked;
@@ -34,8 +34,8 @@ public class BildMovement : MonoBehaviour
     // Startet die Bewegung des Bildes
     public void StartImageMovement()
     {
-        Debug.Log("ABC");
-        // Wir setzen die Zielposition auf die obere Hälfte des Bildes (z. B. Y = 0 oder die obere Grenze des Bildes)
+        //Debug.Log("ABC");
+        // Wir setzen die Zielposition auf die obere Hï¿½lfte des Bildes (z. B. Y = 0 oder die obere Grenze des Bildes)
 
 
         clicked = true;
@@ -43,4 +43,6 @@ public class BildMovement : MonoBehaviour
             imageTransform.position = Vector3.MoveTowards(imageTransform.position, targetPosition, step);
         
     }
+
+    
 }
