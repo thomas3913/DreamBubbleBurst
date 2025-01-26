@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: e19cb6b62d973834cb232d261faa8795
+guid: 296332f661641774b82005f2c0cb7762
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2047588495159532874
-    second: Minigame Border_0
+      213: -7910900733426449593
+    second: full Border_0
   - first:
-      213: -2165935179059550834
-    second: Minigame Border_1
+      213: 2109613353265903403
+    second: full Border_1
   - first:
-      213: -6311675097616743246
-    second: Minigame Border_2
+      213: -2847506917634019097
+    second: full Border_2
   - first:
-      213: -6612731097091702909
-    second: Minigame Border_3
+      213: 7054956408383005259
+    second: full Border_3
+  - first:
+      213: 1815167668415419560
+    second: full Border_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Minigame Border_2
+      name: full Border_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 1280
-        height: 720
+        height: 1440
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b400ec70fc6868a0800000000000000
-      internalID: -6311675097616743246
+      spriteID: 7434dba52b5d63290800000000000000
+      internalID: -7910900733426449593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: full Border_1
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 1324
+        width: 165
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b27b5d6ea2ad64d10800000000000000
+      internalID: 2109613353265903403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: full Border_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 567
+        width: 1280
+        height: 367
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e0f4fe8b8f9b78d0800000000000000
+      internalID: -2847506917634019097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: full Border_3
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 514
+        width: 57
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b42e883897d38e160800000000000000
+      internalID: 7054956408383005259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: full Border_4
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 468
+        width: 35
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a4dca39065c03910800000000000000
+      internalID: 1815167668415419560
       vertices: []
       indices: 
       edges: []
@@ -134,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f252664a500c38e42a5701872400ef6f
+    spriteID: 6d675ca93d582204a93068db70f1b32c
     internalID: 0
     vertices: []
     indices: 
@@ -144,7 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Minigame Border_2: -6311675097616743246
+      full Border_0: -7910900733426449593
+      full Border_1: 2109613353265903403
+      full Border_2: -2847506917634019097
+      full Border_3: 7054956408383005259
+      full Border_4: 1815167668415419560
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

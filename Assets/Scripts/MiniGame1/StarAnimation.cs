@@ -9,7 +9,7 @@ public class StarAnimation : MonoBehaviour
 
     public int starNumber;
 
-    private float scaleUpTime = 0.8f;
+    private float scaleUpTime = 0.5f;
 
     private float scaleTimer = 0.0f;
 

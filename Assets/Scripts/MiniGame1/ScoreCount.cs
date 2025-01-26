@@ -66,10 +66,13 @@ public class ScoreCount : MonoBehaviour
 
 
 
-        if(mode == "death"){
-            this.stars = 0;
-            mainMenuButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, -200);
-            playAgainButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(150, -200);
+        if(SceneManager.Instance.getCurrentScene() == "Minigame_1b"){
+            if(mode == "death" ){
+                this.stars = 0;
+            }
+            
+            mainMenuButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-120, -120);
+            playAgainButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(120, -120);
             nextLevelButton.gameObject.SetActive(false);
 
         }
