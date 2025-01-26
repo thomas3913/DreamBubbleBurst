@@ -142,7 +142,12 @@ public class Player_Cat : MonoBehaviour
 
     public void collectableEntered(string type){
 
+        if(type=="endItem"){
+            Destroy(gameObject,0.1f);
+        }
+
         scoreCount.updateScore(type);
+        
 
     }
 
