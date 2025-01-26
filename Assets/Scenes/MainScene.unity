@@ -1604,6 +1604,7 @@ MonoBehaviour:
   uiImage2: {fileID: 1469310193}
   uiImage3: {fileID: 341481681}
   fullBorder: {fileID: 607254695}
+  catHead: {fileID: 1281071822}
   frames1:
   - {fileID: 21300000, guid: 9d9e48167c15b4762a703507fa03830a, type: 3}
   - {fileID: 21300000, guid: 9bcd66bf6c4f44f14add90965e825e5d, type: 3}
@@ -1616,6 +1617,9 @@ MonoBehaviour:
   frames_fullBorder:
   - {fileID: 21300000, guid: 296332f661641774b82005f2c0cb7762, type: 3}
   - {fileID: 21300000, guid: 0f371e4f6b28164468dc1584cf3234b5, type: 3}
+  frames_catHead:
+  - {fileID: 21300000, guid: 7ce0defa9a71c418280362206f3b9de0, type: 3}
+  - {fileID: 21300000, guid: 8703c81458eed451cb49435f78eef7cc, type: 3}
   frameRate: 0.5
 --- !u!4 &1394911993
 Transform:

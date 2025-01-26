@@ -10,11 +10,15 @@ public class UISpriteAnimator : MonoBehaviour
 
     public Image fullBorder;
 
+    public Image catHead;
+
     public Sprite[] frames1;
     public Sprite[] frames2;
     public Sprite[] frames3;
 
     public Sprite[] frames_fullBorder;
+
+    public Sprite[] frames_catHead;
 
     public float frameRate = 0.1f; // Time per frame
 
@@ -34,6 +38,8 @@ public class UISpriteAnimator : MonoBehaviour
             uiImage3.sprite = frames3[currentFrame];
 
             fullBorder.sprite = frames_fullBorder[currentFrame];
+
+            catHead.sprite = frames_catHead[currentFrame];
         }
     }
 }
