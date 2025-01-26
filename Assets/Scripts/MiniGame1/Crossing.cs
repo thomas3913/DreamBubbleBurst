@@ -38,7 +38,8 @@ public class Crossing : MonoBehaviour
         if(other.gameObject.name == "Player"){
             other.gameObject.GetComponent<Player_Cat>().SetPossibleDirections(directionList);
             other.gameObject.GetComponent<Player_Cat>().directionChanged = false;
-            other.gameObject.GetComponent<Player_Cat>().colliderCenter = transform.position.x;
+            other.gameObject.GetComponent<Player_Cat>().colliderCenterX = transform.position.x;
+            other.gameObject.GetComponent<Player_Cat>().colliderCenterY = transform.position.y;
         }
     }
 }
