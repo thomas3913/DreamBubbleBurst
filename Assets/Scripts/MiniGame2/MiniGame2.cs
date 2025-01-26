@@ -50,7 +50,6 @@ public class MiniGame2 : MonoBehaviour
 
         if (rotateSound != null) rotateSound.Stop();
 
-
         StartGame();
     }
 
