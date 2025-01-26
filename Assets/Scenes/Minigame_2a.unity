@@ -1839,6 +1839,8 @@ MonoBehaviour:
   height: 4
   pawSound: {fileID: 1071924748}
   rotateSound: {fileID: 1071924748}
+  endScreen: {fileID: 484595758336449608}
+  helpText: {fileID: 1061906245}
   nextScene: Minigame_2b
 --- !u!4 &1321648991
 Transform:
@@ -2903,6 +2905,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &484595758336449608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2047411486317063159, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+  m_PrefabInstance: {fileID: 3094221514058113415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &559280008062477740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3074,6 +3081,136 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab57df55c5bdc4bbfb2ba3ae42845033, type: 3}
+--- !u!1001 &3094221514058113415
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267467509081110432, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2047411486317063159, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_Name
+      value: EndScreenGame2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2047411486317063159, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154209805981417069, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154209805981417069, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1321648990}
+    - target: {fileID: 2154209805981417069, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154209805981417069, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: goHome
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154209805981417069, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MiniGame2, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131716621671196986, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131716621671196986, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1321648990}
+    - target: {fileID: 4131716621671196986, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: restartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131716621671196986, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MiniGame2, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402170777704393002, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402170777704393002, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825073952429656210, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825073952429656210, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1321648990}
+    - target: {fileID: 6825073952429656210, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: nextLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825073952429656210, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MiniGame2, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7866293938286633787, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7866293938286633787, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 3071919109320943584, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5a49cef131f9e411297e8ad7e3845fb3, type: 3}
 --- !u!1001 &4416245636675083026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3194,3 +3331,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 29718044}
   - {fileID: 1321648991}
+  - {fileID: 3094221514058113415}

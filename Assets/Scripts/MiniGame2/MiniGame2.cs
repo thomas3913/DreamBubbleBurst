@@ -26,10 +26,14 @@ public class MiniGame2 : MonoBehaviour
 
     Fish servingFish = null;
 
+
     private float pawSpeed = 8.0F;
 
     public AudioSource pawSound;
     public AudioSource rotateSound;
+
+    public GameObject endScreen;
+    public GameObject helpText;
 
     Fish[] allFish = null;
 
@@ -330,10 +334,24 @@ public class MiniGame2 : MonoBehaviour
         }
 
         if (!aFishIsOutside) {
-            SceneManager.Instance.loadScene(nextScene);
+            helpText.SetActive(false);
+            endScreen.SetActive(true);
+            // SceneManager.Instance.loadScene(nextScene);
         }
 
         return !aFishIsOutside;
+    }
+
+    public void nextLevel() {
+        SceneManager.Instance.loadScene(nextScene);
+    }
+
+    public void restartLevel() {
+        SceneManager.Instance.reloadCurrentScene();
+    }
+
+    public void goHome() {
+        SceneManager.Instance.loadScene("MainScene");
     }
 
 }
