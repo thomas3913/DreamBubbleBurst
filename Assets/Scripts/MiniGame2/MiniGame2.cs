@@ -28,7 +28,8 @@ public class MiniGame2 : MonoBehaviour
 
     private float pawSpeed = 8.0F;
 
-
+    public AudioSource pawSound;
+    public AudioSource rotateSound;
 
     Fish[] allFish = null;
 
@@ -42,6 +43,8 @@ public class MiniGame2 : MonoBehaviour
 
         Vector3 leftScreen = new Vector3(0, Screen.height * 0.5F, 0);
         worldLeft = Camera.main.ScreenToWorldPoint(leftScreen);
+
+        if (rotateSound != null) rotateSound.Stop();
 
 
         StartGame();
@@ -84,6 +87,9 @@ public class MiniGame2 : MonoBehaviour
                 fish.rotate();
             }
         }
+
+        if (pawSound != null) pawSound.Play();
+
         fish.gameObject.SetActive(true);
     }
 
@@ -120,6 +126,7 @@ public class MiniGame2 : MonoBehaviour
             if (hoveredFish == servingFish) {
                 servingFish = null;
             }
+            
             // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             // RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
             if(hoveredFish != null) { //  && hit.collider.transform == thisTransform
@@ -127,6 +134,13 @@ public class MiniGame2 : MonoBehaviour
                     lastHoveredFish.isHovered = false;
                     lastHoveredFish = null;
                 }
+
+                // if (!hoveredFish.isOutside) {
+                rotateSound.Stop();
+                rotateSound.time = 0.25F;
+                rotateSound.pitch = 1.5F;
+                rotateSound.Play();
+                // }
 
                 // raycast hit this gameobject
                 // hit.collider.gameObject.pare
@@ -151,6 +165,12 @@ public class MiniGame2 : MonoBehaviour
 
             if (SnapToGrid(draggingFish)) {
                 // fitting
+                if (rotateSound != null) {
+                    rotateSound.Stop();
+                    rotateSound.time = 0.15F;
+                    rotateSound.pitch = 1.0F;
+                    rotateSound.Play();
+                } 
             } else {
                 // return outside
             }
@@ -178,9 +198,15 @@ public class MiniGame2 : MonoBehaviour
 
         if (draggingFish != null) {
 
-            if (Input.GetKeyDown("r"))
+            if (Input.GetKeyDown("r") || mouse.rightButton.wasPressedThisFrame)
             {
                 draggingFish.rotate();
+                if (rotateSound != null) {
+                    rotateSound.Stop();
+                    rotateSound.time = 0.25F;
+                    rotateSound.pitch = 2.25F;
+                    rotateSound.Play();
+                }
             }
 
             Vector3 offset = (mouseStartPosition - getWorldMousePosition());
