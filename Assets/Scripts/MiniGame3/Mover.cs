@@ -5,12 +5,13 @@ public class Mover : MonoBehaviour
 {
     private Vector3 startPosition;
     private Vector3 targetPosition;
+    private Vector3 upPosition;
 
-    private float[,] speedsOut = { { 2.0f, 2.0f, 2.0f }, { 4.0f, 4.0f, 4.0f }, { 8.0f, 8.0f, 8.0f } };
+    private float[,] speedsOut = { { 2.0f, 2.0f, 2.0f }, { 4.0f, 4.0f, 6.0f }, { 8.0f, 10.0f, 12.0f } };
     private float speedIn = 5.0f;
 
-    private float[,] distancesX = { { -1.0f, 0.0f, 1.0f }, { -1.0f, 0.0f, 1.0f }, { -1.0f, 0.0f, 1.0f  } };
-    private float[,] distancesY = { { -3.0f, -3.0f, -3.0f }, { -3.0f, -3.0f, -3.0f  }, { -3.0f, -3.0f, -3.0f  } };
+    private float[,] distancesX = { { -0.75f, -0.75f, 0.0f, 0.0f }, { -0.75f, 0.0f, 0.0f, 0.75f }, { -1.0f, -0.75f, 0.0f, 1.0f  } };
+    private float[,] distancesY = { { -2f, -2f, -2f }, { -1.5f, -2f, -2f  }, { -1.0f, -1.5f, -2f } };
 
     private float rotationSpeed = 5f;
     private float speed;
@@ -22,19 +23,34 @@ public class Mover : MonoBehaviour
     private int level = 0;
 
     private float timer = 0.0f;
-    private float[] wait = {1.0f, 2.0f, 3.0f};
+    private float[] wait = {0.0f, 0.0f, 0.0f, 0.5f, 0.5f, 1.0f, 1.0f, 2f};
 
     private bool go = true;
     private bool smack = false;
 
     public GameObject smackground;
 
+    public GameObject[] levellst;
+
+    public Sprite mouse1;  // The new sprite to switch to
+    public Sprite mouse2;  // The new sprite to switch to
+    public Sprite mouse3;  // The new sprite to switch to
+    public Sprite empty;
+
+    private SpriteRenderer spriteRenderer;  // Reference to the SpriteRenderer component
+    private SpriteRenderer spriteRenderer2; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         startPosition = transform.position;
 
-        Out();
+        upPosition = startPosition;
+        upPosition.y = upPosition.y-1;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        Up();
     }
 
     // Update is called once per frame
@@ -45,6 +61,7 @@ public class Mover : MonoBehaviour
 
         if (timer > 0)
         {
+            spriteRenderer.sprite = mouse2;
             timer -= Time.deltaTime;
             speed = 0;
             rotationSpeed = 0;
@@ -56,6 +73,16 @@ public class Mover : MonoBehaviour
         }
         else
         {
+            if (transform.position[1] <= line && smack == false && Vector3.Distance(transform.position, startPosition) > 0.25)
+            {
+                spriteRenderer.sprite = mouse3;
+            }
+
+            if (transform.position[1] > line) 
+            {
+                spriteRenderer.sprite = mouse1;
+            }
+
             speed = speedIn;
             rotationSpeed = 5.0f;
         //     // stop = true;
@@ -65,11 +92,6 @@ public class Mover : MonoBehaviour
         Rotate();
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-        if (transform.position[1] <= line) 
-        {
-            // Debug.Log("Now!");
-        }
-
         if (Input.GetMouseButtonDown(0)) 
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -77,12 +99,19 @@ public class Mover : MonoBehaviour
 
             if (transform.position[1] <= line && hit.collider != null && hit.collider.gameObject != smackground)
             {
-                if(smack == false)
+                if(smack == false && Vector3.Distance(transform.position, startPosition) > 0.25)
                 {
                     Debug.Log("Yes!");
+                    if (level < levellst.Length)
+                    {
+                        spriteRenderer2 = levellst[level].GetComponent<SpriteRenderer>();
+                        spriteRenderer2.sprite = empty;
+                    }
+
                     level++;
                     timer = 1.0f;
                     smack = true;
+
                 }
 
                 // if (stop == false)
@@ -93,7 +122,7 @@ public class Mover : MonoBehaviour
             else if (transform.position[1] > line && hit.collider != null && hit.collider.gameObject != smackground)
             {
                 Debug.Log("No!");
-                level=0;
+                // level=0;
             }
 
             In();
@@ -131,8 +160,14 @@ public class Mover : MonoBehaviour
     void Out() 
     {
         //wait[Random.Range(0, wait.Length)];
+        spriteRenderer.sprite = mouse1;
 
-        line = lines[Random.Range(0, lines.Length)];
+        Vector3 tempos = startPosition;
+        tempos.y = tempos.y-2;
+
+        // transform.position = Vector3.MoveTowards(transform.position, tempos, speed * Time.deltaTime);
+
+        // line = lines[Random.Range(0, lines.Length)];
 
         if (level < speedsOut.GetLength(0))
         {
@@ -143,7 +178,7 @@ public class Mover : MonoBehaviour
             distance[1] = distancesY[level,Random.Range(0, distancesY.GetLength(1))];
         }
 
-        // line = Random.Range(distance[1]-2, distance[1]-1); ???
+        line = Random.Range(distance[1]+1f, distance[1]+0.25f); // ???
 
         targetPosition = new Vector3(startPosition.x+distance[0], startPosition.y+distance[1], 0.0f);
     }
@@ -152,6 +187,11 @@ public class Mover : MonoBehaviour
     {
         speed = speedIn;
         targetPosition = startPosition;
+    }
+
+    void Up()
+    {
+        targetPosition = upPosition;
     }
 
     void Rotate()
