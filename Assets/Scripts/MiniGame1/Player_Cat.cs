@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Player_Cat : MonoBehaviour
 {
+    private Animator animator;
+
+
     public ScoreCount scoreCount;
 
     public float speed = 0.1f;
@@ -23,7 +26,8 @@ public class Player_Cat : MonoBehaviour
 
     public bool directionChanged;
 
-    public float colliderCenter;
+    public float colliderCenterX;
+    public float colliderCenterY;
 
 
 
@@ -31,7 +35,7 @@ public class Player_Cat : MonoBehaviour
     void Start()
     {
 
-
+        animator = GetComponent<Animator>();
 
 
         playerCollider = GetComponent<Collider2D>();
@@ -45,7 +49,8 @@ public class Player_Cat : MonoBehaviour
 
         directionChanged = false;
 
-        colliderCenter = 0.0f;
+        colliderCenterX = 0.0f;
+        colliderCenterY = 0.0f;
 
     
 
@@ -85,12 +90,16 @@ public class Player_Cat : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.LeftArrow) & possibleDirections.Contains("left") & this.directionChanged == false){
                     this.currentDirection = "horizontal";
                     this.horizontalDirection = "left";
+                    transform.position = new Vector3(transform.position.x, colliderCenterY, transform.position.z);
+
                     this.directionChanged = true;
                 }
 
                 if(Input.GetKeyDown(KeyCode.RightArrow) & possibleDirections.Contains("right") & this.directionChanged == false){
                     this.currentDirection = "horizontal";
                     this.horizontalDirection = "right";
+                    transform.position = new Vector3(transform.position.x, colliderCenterY, transform.position.z);
+
                     this.directionChanged = true;
                 }
             }
@@ -100,14 +109,14 @@ public class Player_Cat : MonoBehaviour
                 }
                 else{
                     if(this.horizontalDirection == "left"){
-                        if(transform.position.x <= colliderCenter){
+                        if(transform.position.x <= colliderCenterX){
                             this.currentDirection = "vertical";
                             this.directionChanged = true;
                         }
                     }
 
                     else if(this.horizontalDirection == "right"){
-                        if(transform.position.x >= colliderCenter){
+                        if(transform.position.x >= colliderCenterX){
                             this.currentDirection = "vertical";
                             this.directionChanged = true;
                         }
@@ -144,6 +153,9 @@ public class Player_Cat : MonoBehaviour
 
         if(type=="endItem"){
             Destroy(gameObject,0.1f);
+        }
+        else if(type == "fish"){
+            animator.SetTrigger("Happy");
         }
 
         scoreCount.updateScore(type);

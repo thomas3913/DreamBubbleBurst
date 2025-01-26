@@ -14,6 +14,7 @@ public class ScoreCount : MonoBehaviour
     private int stars;
 
     public GameObject endScreen;
+    public GameObject decorations;
 
     public GameObject[] inactiveStars;
     public GameObject[] activeStars;
@@ -58,7 +59,14 @@ public class ScoreCount : MonoBehaviour
 
     public void levelFinished(string mode){
 
+
+
+        if(mode == "death"){
+            this.stars = 0;
+        }
+
         endScreen.SetActive(true);
+        decorations.SetActive(false);
 
         int starCount = Mathf.Clamp(this.getStars(), 0, inactiveStars.Length);
 
@@ -68,6 +76,7 @@ public class ScoreCount : MonoBehaviour
             {
                 // Activate stars up to starCount
                 activeStars[i].SetActive(true);
+                activeStars[i].GetComponent<StarAnimation>().popUp();
                 inactiveStars[i].SetActive(false);
             }
             else
@@ -75,6 +84,7 @@ public class ScoreCount : MonoBehaviour
                 // Deactivate remaining stars
                 activeStars[i].SetActive(false);
                 inactiveStars[i].SetActive(true);
+                inactiveStars[i].GetComponent<StarAnimation>().popUp();
             }
         }
 
