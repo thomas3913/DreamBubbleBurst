@@ -10,6 +10,8 @@ public class MiniGame2 : MonoBehaviour
     public int width = 0;
     public int height = 0;
 
+    private NewFishPaw newFishPaw = null;
+
     private Fish draggingFish = null;
     private Fish lastHoveredFish = null;
     private Vector3 mouseStartPosition = new Vector3(0,0,0);
@@ -18,7 +20,14 @@ public class MiniGame2 : MonoBehaviour
     private List<Fish> inactiveFishes = new List<Fish>();
     private List<Fish> activeFishes = new List<Fish>();
 
+    Vector3 worldLeft = new Vector3(0,0,0);
+
     System.Random random = new System.Random();
+
+    Fish servingFish = null;
+
+    private float pawSpeed = 8.0F;
+
 
 
     Fish[] allFish = null;
@@ -29,6 +38,12 @@ public class MiniGame2 : MonoBehaviour
     void Start()
     {
         allFish = gameObject.GetComponentsInChildren<Fish>();
+        newFishPaw = gameObject.GetComponentInChildren<NewFishPaw>();
+
+        Vector3 leftScreen = new Vector3(0, Screen.height * 0.5F, 0);
+        worldLeft = Camera.main.ScreenToWorldPoint(leftScreen);
+
+
         StartGame();
     }
 
@@ -45,6 +60,19 @@ public class MiniGame2 : MonoBehaviour
         inactiveFishes.Remove(fish);
         activeFishes.Add(fish);
         Vector3 spawnPosition = new Vector3(-width * 0.5F - (fish.width * 0.5F + 2), 0, 0);
+        Vector3 pawPosition = newFishPaw.transform.position;
+
+        pawPosition.x = worldLeft.x - 2.0F;
+        pawPosition.y = 0;
+        pawPosition.z = 10;
+
+        servingFish = fish;
+
+        newFishPaw.transform.position = pawPosition;
+
+        spawnPosition.x = pawPosition.x;
+        spawnPosition.y = pawPosition.y;
+
         fish.transform.position = spawnPosition;
         fish.isOutside = true;
 
@@ -68,14 +96,33 @@ public class MiniGame2 : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
         Fish hoveredFish = null;
+
+        if (servingFish != null) {
+            Vector3 pawPosition = newFishPaw.transform.position;
+            Vector3 fishPosition = servingFish.transform.position;
+            fishPosition.x = pawPosition.x;
+            fishPosition.y = pawPosition.y;
+
+            if (pawPosition.x < worldLeft.x * 0.5F - 2) {
+                pawPosition.x += Time.deltaTime * pawSpeed;
+                servingFish.MoveFish(fishPosition);
+            } else {
+                // servingFish = null;
+            }
+            newFishPaw.transform.position = pawPosition;
+        } 
+        
         if(hit.collider != null) {
             hoveredFish = hit.collider.gameObject.GetComponentInParent<Fish>();
         }
-        if (mouse.leftButton.isPressed && draggingFish == null) {
+        if (mouse.leftButton.wasPressedThisFrame && draggingFish == null) {
+
+            if (hoveredFish == servingFish) {
+                servingFish = null;
+            }
             // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             // RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
             if(hoveredFish != null) { //  && hit.collider.transform == thisTransform
-
                 if (lastHoveredFish != null) {
                     lastHoveredFish.isHovered = false;
                     lastHoveredFish = null;
@@ -118,6 +165,14 @@ public class MiniGame2 : MonoBehaviour
             if (hoveredFish == null && lastHoveredFish != null) {
                 lastHoveredFish.isHovered = false;
                 lastHoveredFish = null;
+            }
+        }
+
+        if (servingFish == null) {
+            Vector3 pawPosition = newFishPaw.transform.position;
+            if (pawPosition.x > worldLeft.x * 0.5F - 10) {
+                pawPosition.x -= Time.deltaTime * pawSpeed;
+                newFishPaw.transform.position = pawPosition;
             }
         }
 

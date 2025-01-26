@@ -73,23 +73,17 @@ public class Fish : MonoBehaviour
 
         float scaleDifference = Mathf.Abs(currentScale - targetScale);
         if (scaleDifference > 0.01F) {
-            // Debug.Log(scaleDifference);
-            // Debug.Log("scale!");
             float delta = Time.deltaTime * scaleSpeed;
-            // Debug.Log(delta);
 
             if (Mathf.Abs(delta) > scaleDifference) {
                 delta = scaleDifference;
             }
-            // Debug.Log(Mathf.Abs(delta));
 
             if (currentScale > targetScale) {
                 currentScale -= delta;
             } else {
                 currentScale += delta;
             }
-
-            // Debug.Log(currentScale);
 
             spriteRenderer.gameObject.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
 

@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3711159447648937109}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -131,6 +131,8 @@ MonoBehaviour:
   CollideLayer:
     serializedVersion: 2
     m_Bits: 256
+  targetScale: 1
+  isHovered: 0
   isOutside: 0
 --- !u!50 &6758785815477834169
 Rigidbody2D:
@@ -235,12 +237,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3917966301056296290, guid: a18f22e1255e64ad09cddd5e393e63a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a18f22e1255e64ad09cddd5e393e63a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.95, y: 0.87}
+  m_Size: {x: 1.04, y: 0.98}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
