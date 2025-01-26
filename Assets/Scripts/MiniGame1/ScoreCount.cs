@@ -64,17 +64,20 @@ public class ScoreCount : MonoBehaviour
 
     public void levelFinished(string mode){
 
+        if(mode == "death"){
+            this.stars = 0;
 
-
-        if(SceneManager.Instance.getCurrentScene() == "Minigame_1b"){
-            if(mode == "death" ){
-                this.stars = 0;
-            }
-            
             mainMenuButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-120, -120);
             playAgainButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(120, -120);
             nextLevelButton.gameObject.SetActive(false);
+        }
 
+
+
+        if(SceneManager.Instance.getCurrentScene() == "Minigame_1b"){
+            mainMenuButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(-120, -120);
+            playAgainButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(120, -120);
+            nextLevelButton.gameObject.SetActive(false);
         }
 
         endScreen.SetActive(true);

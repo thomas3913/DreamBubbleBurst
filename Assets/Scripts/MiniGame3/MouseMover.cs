@@ -22,6 +22,8 @@ public class MouseMover : MonoBehaviour
 
     private bool stop = false;
 
+    
+
     void Start()
     {
         level = 0;

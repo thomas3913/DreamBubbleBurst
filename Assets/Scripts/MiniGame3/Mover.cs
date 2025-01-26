@@ -40,6 +40,8 @@ public class Mover : MonoBehaviour
     private SpriteRenderer spriteRenderer;  // Reference to the SpriteRenderer component
     private SpriteRenderer spriteRenderer2; 
 
+    public GameObject endScreen;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -123,6 +125,7 @@ public class Mover : MonoBehaviour
             {
                 Debug.Log("No!");
                 // level=0;
+                endScreen.SetActive(true);
             }
 
             In();
@@ -208,6 +211,10 @@ public class Mover : MonoBehaviour
     {
         Debug.Log("You win!");
         Destroy(gameObject, 1);
+
+        SceneManager.Instance.loadScene("MainScene");
+
+        
     }
 
     // IEnumerator Freeze1()
